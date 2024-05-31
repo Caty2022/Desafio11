@@ -20,6 +20,10 @@ const mockRouter = require("./routes/mock.router.js");
 
 const manejadorError = require("./middleware/error.js");
 
+// Swagger
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUiExpress = require("swagger-ui-express");
+
 // Utilizamos compresion:
 const compression = require("express-compression");
 app.use(compression());
@@ -77,16 +81,21 @@ const httpServer = app.listen(PUERTO, () => {
 const SocketManager = require("./sockets/socketmanager.js");
 new SocketManager(httpServer);
 
-const swaggerJSDoc = require ("swagger-jsdoc");
-const swaggerUiExpress = require ("swagger-ui-express");
 
+
+//SWAGGER
 const swaggerOptions = {
-  definition: {
-    openapi: "3.0.1",
+  swaggerDefinition: {
+    openapi: "3.0.0",
     info: {
-      title: "Documentation for the App",
-      description: "Web App for a baby clothing e-commerce"
-    }
+      title: "Tienda de ropa de Bebé",
+      version: "1.0.0",
+      description: "Regalá calidad para tu bebé.",
+      contact: {
+        name: "Catalina Krenz",
+      },
+      servers: ["http://localhost:8080"],
+    },
   },
   apis: ["./src/docs/**/*.yaml"],
 };
